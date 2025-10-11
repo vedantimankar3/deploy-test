@@ -1,0 +1,32 @@
+on:
+push:
+branches:[main]
+
+permission:
+content:read
+pages:write
+id-token:write
+
+jobs:
+deploy:
+environment:
+name:github-pages
+url:${{steps.deplloyment.output.page_url}}
+
+runs-on:ubuntu-latest
+steps:
+-name:Checkout code 
+uses:action/checkouut@v3
+
+name:Setup pages
+uses:actions/configuration-pages@v3
+name:upload build
+uses:actions/upload-page-artifact@v2
+
+with:
+path:
+-name:deploy
+id:deployment
+uses:actions/deploy-pages@v2
+
+
